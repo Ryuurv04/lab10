@@ -1,0 +1,41 @@
+<?php
+require_once('modelo.php');
+
+class votos extends modeloCredencialesBD{
+
+    public function __construct(){
+        parent::__construct();
+    }
+
+    public function listar_votos(){
+        $instruccion="CALL sp_listar_votos()";
+
+        $consulata=$this->_db->query($instruccion);
+        $resultado=$consulata->fetch_all(MYSQLI_ASSOC);
+
+        if($resultado){
+            return $resultado;
+            $resultado->close();
+            $this->_db->close();
+        }
+    }
+
+    public function actualizar_votos($votos1, $votos2){
+        $instruccion="CALL sp_actualizar_votos('".$votos1."','".$votos2."')";
+
+
+        $actualiza=$this->_db->query($instruccion);
+        
+
+        if($actualiza){
+            return $actualiza;
+            $actualiza->close();
+            $this->_db->close();
+        }
+    }
+
+
+}
+
+
+?>
